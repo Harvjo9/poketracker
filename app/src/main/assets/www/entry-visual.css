@@ -91,3 +91,52 @@ html[data-theme="night"] .form-family-card .form-family-art{background:linear-gr
 .distribution-year-tabs button small{font-size:10px;color:inherit;opacity:.8}
 .distribution-method{display:block;font-size:10px;line-height:1.45;max-width:100%;color:var(--theme-muted);margin-top:6px}
 .picture-entry-list .distribution-method{white-space:normal}
+
+/* Independent Shiny Forms v0.3.1: collectible cards, dual toggles and source filters. */
+.collection-card[data-collection="shiny-forms"]{
+ --collection-color:#e9b224;
+ background:linear-gradient(145deg,color-mix(in srgb,#ffd95a 20%,var(--theme-surface)),var(--theme-surface) 66%);
+}
+.shiny-source-tabs{margin-top:5px;margin-bottom:17px;padding-bottom:10px}
+.shiny-source-tabs button{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-height:49px;justify-content:center;border-radius:13px;font-size:12px}
+.shiny-source-tabs button small{font-size:10px;opacity:.82;color:inherit}
+.visual-entry-grid .check-item:has(.shiny-mini-toggle){min-height:225px}
+.shiny-mini-toggle{
+ display:flex;align-items:center;justify-content:center;gap:5px;
+ width:100%;min-height:34px;border-radius:11px;
+ background:color-mix(in srgb,#f4b828 15%,var(--theme-surface));
+ border:1px solid color-mix(in srgb,#d3a128 48%,var(--theme-line));
+ color:var(--theme-ink);font-weight:800;font-size:11px;
+ padding:6px 8px;white-space:normal;text-align:center;
+}
+.shiny-mini-toggle.owned{
+ background:color-mix(in srgb,#f7c443 36%,var(--theme-surface));
+ border-color:#d9a621;color:var(--theme-ink);
+}
+.shiny-mini-toggle:focus-visible{outline:3px solid #ffcf4e;outline-offset:2px}
+.shiny-mini-locked{
+ display:block;font-size:9px;line-height:1.35;max-width:100%;
+ border-radius:9px;background:color-mix(in srgb,#8792aa 10%,var(--theme-surface));
+ color:var(--theme-muted);padding:5px 8px;text-align:center;
+}
+.visual-entry-grid .shiny-mini-toggle,
+.visual-entry-grid .shiny-mini-locked{margin-top:auto;align-self:stretch;flex:0 0 auto}
+.visual-entry-grid .check-item.is-collected .shiny-mini-toggle:not(.owned){
+ background:color-mix(in srgb,#f9d373 20%,var(--theme-surface));
+}
+.picture-entry-list .shiny-mini-toggle{
+ width:auto;min-width:77px;order:4;align-self:center;white-space:nowrap;flex-shrink:0;
+}
+.picture-entry-list .shiny-mini-locked{order:4;align-self:center;min-width:80px;max-width:94px}
+.picture-entry-list .check-item:has(.shiny-mini-toggle){flex-wrap:wrap}
+.picture-entry-list .check-item .delete-small{order:5}
+.visual-entry-grid .check-item:has(.entry-art-empty) .entry-art-action{color:#d7a421}
+.visual-entry-grid .check-item:has(.entry-art-empty) .entry-art-empty{font-size:30px}
+html[data-theme="night"] .shiny-mini-toggle{background:#51472b;border-color:#84733f;color:#ffe2a0}
+html[data-theme="night"] .shiny-mini-toggle.owned{background:#68512e;border-color:#d6aa49;color:#ffebb9}
+html[data-theme="night"] .shiny-mini-locked{background:#353e52;color:#abbcd4}
+@media(max-width:390px){
+ .picture-entry-list .check-item:has(.shiny-mini-toggle){padding:8px;gap:7px}
+ .picture-entry-list .shiny-mini-toggle{min-width:72px;font-size:10px}
+ .visual-entry-grid .check-item:has(.shiny-mini-toggle){min-height:217px}
+}
