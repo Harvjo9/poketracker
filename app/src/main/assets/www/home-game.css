@@ -1,0 +1,40 @@
+/* Poké Track v0.3.2: game-specific HOME reward Dexes */
+.game-collection-overview{
+ background:linear-gradient(125deg,color-mix(in srgb,var(--theme-secondary) 11%,var(--theme-surface)),var(--theme-surface) 80%);
+ border:1px solid color-mix(in srgb,var(--theme-secondary) 22%,var(--theme-line));
+ border-left:5px solid var(--theme-secondary);
+ border-radius:16px;padding:15px 16px;margin:14px 0 17px;
+ color:var(--theme-ink);
+}
+.game-collection-overview strong{font-size:14px;line-height:1.45;display:flex;justify-content:space-between;gap:6px;align-items:center}
+.game-collection-overview strong span{color:var(--theme-secondary);font-size:17px}
+.game-collection-overview p{font-size:11px;color:var(--theme-muted);line-height:1.55;margin:6px 0 12px}
+.game-dex-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:8px 0 18px}
+.game-dex-tab{
+ background:var(--theme-surface);color:var(--theme-ink);border:1px solid var(--theme-line);
+ border-radius:14px;padding:12px 10px;display:flex;align-items:flex-start;justify-content:center;
+ flex-direction:column;gap:5px;text-align:left;min-height:69px;
+ box-shadow:0 4px 12px rgba(20,49,88,.045);
+}
+.game-dex-tab b{font-size:12px;font-weight:850;line-height:1.3}
+.game-dex-tab small{font-size:10px;color:var(--theme-muted);font-weight:700}
+.game-dex-tab.selected{
+ background:color-mix(in srgb,var(--theme-secondary) 13%,var(--theme-surface));
+ border:2px solid var(--theme-secondary);padding:11px 9px;
+}
+.game-dex-tab.selected b{color:var(--theme-secondary)}
+.game-origin-note{
+ color:var(--theme-ink);
+ background:color-mix(in srgb,var(--theme-gold) 14%,var(--theme-surface));
+ border:1px solid color-mix(in srgb,var(--theme-gold) 46%,var(--theme-line));
+ padding:12px 13px;border-radius:13px;margin-bottom:18px;font-size:11px;line-height:1.6;
+}
+.game-origin-note strong{color:var(--theme-primary);font-weight:850}
+.game-origin-note small{display:block;color:var(--theme-muted);font-size:10px;margin-top:6px}
+.game-origin-entry{font-size:10px!important;line-height:1.4;color:var(--theme-secondary)!important}
+.picture-entry-list .check-item .game-origin-entry{display:block}
+html[data-theme="night"] .game-dex-tab.selected b{color:#83cafd}
+html[data-theme="night"] .game-origin-entry{color:#7bccff!important}
+html[data-theme="night"] .game-origin-note strong{color:#ffe3aa}
+@media(max-width:360px){.game-dex-tabs{gap:6px}.game-dex-tab{padding:10px 7px;min-height:73px}.game-dex-tab.selected{padding:9px 6px}.game-dex-tab b{font-size:11px}}
+@media(min-width:720px){.game-dex-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
