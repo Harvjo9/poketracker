@@ -59,7 +59,7 @@ const isChecked=(collection,id)=>checked(key(collection,id));
 function dexProgress(){let complete=0,slotsOwned=0;for(const mon of species){const keys=slots(mon.id);const yes=keys.filter(slot=>checked(`main:${mon.id}:${slot}`)).length;slotsOwned+=yes;if(yes===keys.length)complete++;}return {done:complete,total:species.length,slotsOwned,slotsTotal:species.length*2,pct:Math.round(100*complete/species.length)};}
 function monProgress(id){const sl=slots(id);const own=sl.filter(s=>checked(`main:${id}:${s}`)).length;return {own,total:sl.length,complete:own===sl.length};}
 function collectionItems(coll){return collectionEntries(coll,species,getCustomItems(coll.id));}
-function collectionProgress(coll){const items=collectionItems(coll),done=items.filter(item=>isChecked(coll.id,item.id)).length;return {done,total:items.length,pct:items.length?Math.round(100*done/items.length):null};}
+function collectionProgress(coll){const items=collectionItems(coll),done=items.filter(item=>isChecked(coll.id,item.id)).length;return {done,total:items.length,pct:items.length?(coll.id==='shiny-forms'?Math.round(1000*done/items.length)/10:Math.round(100*done/items.length)):null};}
 function circleProgress(value,size='medium'){return `<span class="ring ${size}" style="--value:${Math.max(0,value??0)}"><span>${value==null?'—':`${value}%`}</span></span>`;}
 function progressBar(pct){return `<div class="progress-track"><span style="width:${Math.max(0,pct||0)}%"></span></div>`;}
 function tag(text,kind='muted'){return `<span class="pill ${kind}">${safe(text)}</span>`;}
@@ -125,7 +125,7 @@ function shinySourceTabs(all){
  return `<div class="form-filter-header"><strong>Choose a shiny collection</strong><small>Every shiny checkmark is independent.</small></div><div class="chips shiny-source-tabs" aria-label="Shiny form category">${names.map(source=>{
   const items=all.filter(item=>source.id==='All'||item.sourceCollection===source.id);
   const done=items.filter(item=>isChecked('shiny-forms',item.id)).length;
-  return `<button type="button" data-shiny-source="${safe(source.id)}" class="${state.shinySource===source.id?'selected':''}" aria-pressed="${state.shinySource===source.id}">${safe(source.label)} <small>${done}/${items.length}</small></button>`;
+  return `<button type="button" data-shiny-source="${safe(source.id)}" class="${state.shinySource===source.id?'selected':''}" aria-pressed="${state.shinySource===source.id}">${safe(source.label)} <small>${done}/${items.length} · ${items.length?Math.round(1000*done/items.length)/10:0}%</small></button>`;
  }).join('')}</div>`;
 }
 
