@@ -41,7 +41,7 @@ assert.equal(SHINY_FORM_ITEMS.filter(x=>x.sourceCollection==='unown').length,28)
 assert.equal(SHINY_FORM_ITEMS.filter(x=>x.sourceCollection==='furfrou').length,10);
 assert.equal(SHINY_FORM_ITEMS.filter(x=>x.sourceCollection==='vivillon').length,19);
 assert.equal(SHINY_FORM_ITEMS.filter(x=>x.sourceCollection==='regional').length,58);
-assert.ok(!get('vivillon','poke-ball'),'Shiny locked Poké Ball Vivillon incorrectly collectible');
+assert.ok(!get('vivillon','pok-ball'),'Shiny locked Poké Ball Vivillon incorrectly collectible');
 assert.ok(!get('gmax','gigantamax-melmetal'),'Shiny locked Gigantamax Melmetal incorrectly collectible');
 assert.ok(!get('variants','801:original'),'Shiny locked original Magearna incorrectly collectible');
 assert.ok(!get('variants','901:bloodmoon'),'Shiny locked Bloodmoon Ursaluna incorrectly collectible');
