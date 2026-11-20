@@ -1,3 +1,4 @@
+import {REGIONAL_FORMS,FORM_VARIANTS,GMAX_FORMS,MEGA_REGISTRATIONS,ALPHA_TARGETS,FORM_CATALOG_COUNTS} from './forms-catalog.js';
 // Catalog snapshot: PokéAPI species IDs 1–1025, November 2026.
 // Collection items marked 'starter' are illustrative starter requirements, NOT complete or verified HOME catalogs.
 const noGender = new Set('81,82,100,101,120,121,132,137,144,145,146,150,151,201,233,243,244,245,249,250,251,292,337,338,343,344,374,375,376,377,378,379,382,383,384,385,386,436,437,462,474,479,480,481,482,483,484,486,487,489,490,491,492,493,494,599,600,601,615,622,623,638,639,640,643,644,646,647,648,649,703,716,717,718,719,720,721,772,773,774,781,785,786,787,788,789,790,791,792,793,794,795,796,797,798,799,800,801,802,803,804,805,806,807,808,809,854,855,870,880,881,882,883,888,889,890,893,894,895,896,897,898,924,925,984,985,986,987,988,989,990,991,992,993,994,995,999,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1012,1013,1020,1021,1022,1023,1025'.split(',').map(Number));
@@ -41,15 +42,16 @@ export const HOME_GAME_GROUPS = [
 // A 'starter' catalog deliberately does not claim to be the complete set of Pokémon HOME-eligible entries.
 export const COLLECTIONS = [
  {id:'shiny',title:'Shiny Dex',emoji:'✨',group:'living',fullSpecies:true,complete:false,description:'Separate shiny checklist, one per National species. Shiny-lock exceptions still need review.'},
- {id:'variants',title:'Variant Forms',emoji:'🎭',group:'forms',starter:true,description:'Alternate forms; one of each. Starter targets, expandable.',items:forms('Lycanroc Midday|Lycanroc Midnight|Lycanroc Dusk|Oricorio Baile|Oricorio Pom-Pom|Oricorio Pa’u|Oricorio Sensu|Rotom Heat|Rotom Wash|Rotom Frost|Rotom Fan|Rotom Mow|Toxtricity Amped|Toxtricity Low Key|Furfrou Heart|Furfrou Star|Furfrou Diamond|Furfrou Debutante|Furfrou Matron|Furfrou Dandy|Furfrou La Reine|Furfrou Kabuki|Furfrou Pharaoh').map(item=>({...item,speciesId:matchSpeciesId(item.name)}))},
- {id:'regional',title:'Regional Variants',emoji:'🌎',group:'forms',starter:true,description:'Alolan, Galarian, Hisuian, Paldean. Starter targets; more to add.',items:labels('Alolan Raichu|Alolan Vulpix|Alolan Ninetales|Alolan Sandshrew|Alolan Sandslash|Alolan Meowth|Alolan Persian|Alolan Diglett|Alolan Dugtrio|Alolan Geodude|Alolan Graveler|Alolan Golem|Alolan Grimer|Alolan Muk|Alolan Exeggutor|Alolan Marowak|Galarian Ponyta|Galarian Rapidash|Galarian Zigzagoon|Galarian Linoone|Galarian Meowth|Galarian Farfetch’d|Galarian Corsola|Galarian Weezing|Galarian Slowpoke|Galarian Slowbro|Galarian Slowking|Hisuian Growlithe|Hisuian Arcanine|Hisuian Zorua|Hisuian Zoroark|Hisuian Voltorb|Hisuian Electrode|Hisuian Sneasel|Hisuian Qwilfish|Hisuian Typhlosion|Hisuian Decidueye|Hisuian Samurott|Paldean Wooper|Paldean Tauros Combat|Paldean Tauros Blaze|Paldean Tauros Aqua').map(item=>({...item,speciesId:matchSpeciesId(item.name)}))},
+ {id:'variants',title:'Variant Forms',emoji:'🎭',group:'forms',complete:true,description:'259 HOME-oriented form entries from 51 Pokémon families. Select a Pokémon family to see its distinct forms. Regional forms are tracked separately.',items:FORM_VARIANTS},
+ {id:'regional',title:'Regional Variants',emoji:'🌎',group:'forms',complete:true,description:'58 regional forms. Choose Alola, Galar, Hisui or Paldea; each region has its own progress.',items:REGIONAL_FORMS},
  {id:'vivillon',title:'Vivillon Dex',emoji:'🦋',group:'forms',complete:true,description:'20 named patterns; one of each.',items:vivillon},
  {id:'alcremie',title:'Alcremie Dex',emoji:'🍰',group:'forms',complete:true,description:'63 cream-and-sweet combinations; one of each.',items:alcremie},
  {id:'unown',title:'Unown Dex',emoji:'🔤',group:'forms',complete:true,description:'A–Z plus ! and ?; one of each.',items:unown},
  {id:'furfrou',title:'Furfrou Dex',emoji:'🐩',group:'forms',complete:true,description:'Natural coat and the nine named trims; one of each.',items:labels('Natural Form|Heart Trim|Star Trim|Diamond Trim|Debutante Trim|Matron Trim|Dandy Trim|La Reine Trim|Kabuki Trim|Pharaoh Trim').map(x=>({...x,speciesId:676}))},
- {id:'gmax',title:'Gigantamax / Dynamax',emoji:'⚡',group:'special',starter:true,description:'Track special eligible Gigantamax-factor Pokémon; one each. Starter targets.',items:labels('Gigantamax Charizard|Gigantamax Venusaur|Gigantamax Blastoise|Gigantamax Pikachu|Gigantamax Eevee|Gigantamax Meowth|Gigantamax Butterfree|Gigantamax Corviknight|Gigantamax Gengar|Gigantamax Snorlax|Gigantamax Lapras|Gigantamax Melmetal')},
+ {id:'gmax',title:'Gigantamax Factor',emoji:'⚡',group:'special',complete:true,description:'32 eligible Pokémon species with Gigantamax Factor. One per species. Normal Dynamax is not a distinct stored form.',items:GMAX_FORMS},
+ {id:'mega',title:'Mega Registrations',emoji:'Ⓜ️',group:'special',starter:true,description:'Mega Evolution HOME registration records, not storable Mega specimens. This list includes forms beyond official reward requirements; verify origin and Mega Stones separately.',items:MEGA_REGISTRATIONS},
  {id:'titan',title:'Titan Dex',emoji:'⛰️',group:'special',starter:true,description:'Special Titan Pokémon, one each. Confirm HOME-preserved status when finalizing.',items:labels('Klawf — Stony Cliff Titan|Bombirdier — Open Sky Titan|Orthworm — Lurking Steel Titan|Great Tusk — Quaking Earth Titan|Iron Treads — Quaking Earth Titan|Dondozo — False Dragon Titan|Tatsugiri — False Dragon Titan')},
- {id:'alpha',title:'Alpha Dex',emoji:'🔴',group:'special',starter:true,description:'An expandable list of Alpha targets. Add missing targets before checking them off.',items:labels('Alpha Wyrdeer|Alpha Ursaluna|Alpha Hisuian Braviary|Alpha Basculegion|Alpha Sneasler')},
+ {id:'alpha',title:'Alpha Dex',emoji:'🔴',group:'special',complete:true,description:'222 species eligible for Alpha status in Legends: Arceus; Legendary/Mythical and unavailable gift species excluded. Track one each.',items:ALPHA_TARGETS},
  {id:'ride',title:'Ride Pokémon',emoji:'🏇',group:'special',starter:true,description:'Pokémon ridden in games, such as Gogoat or Legends: Arceus mounts. Starter targets.',items:labels('X/Y — Gogoat|X/Y — Rhyhorn|X/Y — Mamoswine|X/Y — Lapras|Legends: Arceus — Wyrdeer|Legends: Arceus — Ursaluna|Legends: Arceus — Basculegion|Legends: Arceus — Sneasler|Legends: Arceus — Hisuian Braviary|Scarlet/Violet — Koraidon|Scarlet/Violet — Miraidon')},
  {id:'trainer',title:'Trainer Trades',emoji:'🤝',group:'records',description:'In-game NPC trade Pokémon you want to collect. Add your own checklist targets.',items:[]},
  {id:'events',title:'Event Dex',emoji:'🎁',group:'records',description:'Distribution events. Add event-specific entries independently.',items:[]},
@@ -62,5 +64,24 @@ export const COLLECTIONS = [
 ];
 function matchSpeciesId(name){const n=name.toLowerCase();if(n.startsWith('lycanroc'))return 745;if(n.startsWith('oricorio'))return 741;if(n.startsWith('rotom'))return 479;if(n.startsWith('toxtricity'))return 849;if(n.startsWith('furfrou'))return 676;return undefined;}
 export function collectionById(id){return COLLECTIONS.find(x=>x.id===id);}
-export function collectionEntries(collection,species,custom=[]){const base=collection.fullSpecies?species.map(s=>({id:String(s.id),name:s.name,speciesId:s.id})):collection.items||[];const ids=new Set(base.map(x=>x.id));return [...base,...custom.filter(x=>!ids.has(x.id))];}
+const ASSOCIATED_COLLECTIONS = new Set(['titan','ride','eevee','pikachu','trainer','events','worlds']);
+const sidForEntry = (name,species) => {
+ const value=String(name).toLowerCase();
+ const sorted=[...species].sort((a,b)=>b.name.length-a.name.length);
+ for(const mon of sorted){
+   const monName=mon.name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\export function collectionEntries(collection,species,custom=[]){const base=collection.fullSpecies?species.map(s=>({id:String(s.id),name:s.name,speciesId:s.id})):collection.items||[];const ids=new Set(base.map(x=>x.id));return [...base,...custom.filter(x=>!ids.has(x.id))];}');
+   const pattern=new RegExp('(^|[^a-z])'+monName+'($|[^a-z])','i');
+   if(pattern.test(value))return mon.id;
+ }
+ return undefined;
+};
+export function collectionEntries(collection,species,custom=[]){
+ if(!collection)return [];
+ const raw=collection.fullSpecies?species.map(s=>({id:String(s.id),name:s.name,speciesId:s.id})):collection.items||[];
+ const all=[...raw,...custom.filter(item=>!raw.some(x=>x.id===item.id))];
+ if(!ASSOCIATED_COLLECTIONS.has(collection.id))return all;
+ return all.map(item=>item.speciesId?item:{...item,speciesId:sidForEntry(item.name,species)});
+}
+export {FORM_CATALOG_COUNTS};
+
 export const CATALOG_VERSION='2026-11-prototype';
