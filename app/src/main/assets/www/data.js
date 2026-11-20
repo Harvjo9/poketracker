@@ -67,9 +67,12 @@ export function collectionById(id){return COLLECTIONS.find(x=>x.id===id);}
 const ASSOCIATED_COLLECTIONS = new Set(['titan','ride','eevee','pikachu','trainer','events','worlds']);
 const sidForEntry = (name,species) => {
  const value=String(name).toLowerCase();
- const sorted=[...species].sort((a,b)=>b.name.length-a.name.length);
- for(const mon of sorted){
-   const monName=mon.name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\export function collectionEntries(collection,species,custom=[]){const base=collection.fullSpecies?species.map(s=>({id:String(s.id),name:s.name,speciesId:s.id})):collection.items||[];const ids=new Set(base.map(x=>x.id));return [...base,...custom.filter(x=>!ids.has(x.id))];}');
+ const matches=species.filter(mon=>value.includes(mon.name.toLowerCase()));
+ if(!matches.length)return undefined;
+ matches.sort((a,b)=>b.name.length-a.name.length);
+ return matches[0].id;
+};
+export function collectionEntries(collection,species,custom=[]){const base=collection.fullSpecies?species.map(s=>({id:String(s.id),name:s.name,speciesId:s.id})):collection.items||[];const ids=new Set(base.map(x=>x.id));return [...base,...custom.filter(x=>!ids.has(x.id))];}');
    const pattern=new RegExp('(^|[^a-z])'+monName+'($|[^a-z])','i');
    if(pattern.test(value))return mon.id;
  }
