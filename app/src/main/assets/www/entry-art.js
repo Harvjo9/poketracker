@@ -51,7 +51,7 @@ export function entryArtSources(collection,item){
  if(coll==='alcremie'){
   const part=id.endsWith('-sweet')?id:id+'-sweet';
   candidates.push(HOME+'869-'+part+'.png');
- }else if(coll==='vivillon')candidates.push(HOME+'666-'+id+'.png');
+ }else if(coll==='vivillon')candidates.push(HOME+'666-'+(id==='pok-ball'?'poke-ball':id)+'.png');
  else if(coll==='unown')candidates.push(HOME+'201-'+id+'.png');
  else if(coll==='furfrou'){
   const suffix=id==='natural-form'?'natural':id.replace(/-trim$/,'');
