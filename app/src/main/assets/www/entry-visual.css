@@ -1,0 +1,86 @@
+/* Poké Track v0.3.0: artwork-first collection cards and easy form filters */
+.entry-art-action{
+ display:flex;align-items:center;justify-content:center;border:0;border-radius:15px;
+ width:66px;height:66px;flex:0 0 66px;overflow:hidden;
+ background:radial-gradient(circle at 46% 40%,rgba(255,255,255,.92),rgba(89,164,218,.15));
+ color:var(--theme-secondary);cursor:pointer;
+}
+.entry-art{
+ width:100%;height:100%;display:grid;place-items:center;position:relative;
+}
+.entry-art img{
+ max-width:96%;max-height:96%;width:100%;height:100%;
+ object-fit:contain;display:block;filter:drop-shadow(0 4px 5px rgba(25,50,82,.13));
+}
+.entry-art-fallback{display:grid;place-items:center;font-size:26px;color:var(--theme-muted);width:100%;height:100%}
+.entry-art-empty{font-size:28px;background:linear-gradient(135deg,rgba(125,187,230,.14),rgba(245,206,99,.18));border-radius:13px}
+.entry-art.compact{width:46px;height:46px}
+.entry-art.compact .entry-art-fallback{font-size:20px}
+.picture-entry-list{background:var(--theme-surface);border:1px solid var(--theme-line);border-radius:18px;overflow:hidden}
+.picture-entry-list .check-item{
+ display:flex;align-items:center;gap:10px;min-height:76px;padding:9px 12px;
+ border-bottom:1px solid var(--theme-line);
+}
+.picture-entry-list .check-item:last-child{border-bottom:0}
+.picture-entry-list .entry-art-action{order:1}
+.picture-entry-list .check-text{order:2;font-weight:750;line-height:1.36}
+.picture-entry-list .checkbox-tap{order:3;flex:0 0 38px;height:40px;touch-action:manipulation}
+.picture-entry-list .delete-small{order:4}
+.check-item.is-collected{background:color-mix(in srgb,var(--theme-green) 6%,var(--theme-surface))}
+.check-item.is-collected .check-text{color:var(--theme-green)}
+.check-item .check-text{min-width:0;overflow-wrap:anywhere}
+.check-item .check-text small{font-size:10px;line-height:1.4;margin-top:5px}
+.check-item .checkbox-tap{width:38px;height:38px}
+.check-item .checkbox-tap span{width:28px;height:28px}
+.visual-entry-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+ border:0;background:none;border-radius:0;overflow:visible;margin-top:7px;
+}
+.visual-entry-grid .check-item{
+ position:relative;display:flex;flex-direction:column;align-items:stretch;
+ justify-content:flex-start;gap:7px;padding:12px 10px 14px;
+ min-width:0;min-height:191px;background:var(--theme-surface);
+ border:1px solid var(--theme-line);border-radius:19px;overflow:hidden;
+ box-shadow:0 7px 18px rgba(35,74,120,.06);
+}
+.visual-entry-grid .check-item.is-collected{border-color:var(--theme-green);background:color-mix(in srgb,var(--theme-green) 7%,var(--theme-surface))}
+.visual-entry-grid .entry-art-action{width:100%;height:110px;flex:0 0 110px;background:radial-gradient(circle at center,rgba(155,212,252,.20),transparent 75%)}
+.visual-entry-grid .entry-art img{max-height:108px;max-width:125px;filter:drop-shadow(0 6px 7px rgba(28,48,78,.13))}
+.visual-entry-grid .checkbox-tap{position:absolute;right:9px;top:9px;z-index:1;border-radius:11px;background:var(--theme-surface);box-shadow:0 2px 8px rgba(30,57,92,.08)}
+.visual-entry-grid .checkbox-tap span{border-radius:9px}
+.visual-entry-grid .check-text{width:100%;font-size:12px;line-height:1.32;text-align:center;padding:2px 3px 0;min-height:35px}
+.visual-entry-grid .check-text small{margin-top:5px;font-size:9px}
+.visual-entry-grid .delete-small{position:absolute;left:8px;top:6px;width:29px;height:29px;background:var(--theme-surface);border-radius:50%}
+.form-filter-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:19px;margin-bottom:8px;color:var(--theme-ink)}
+.form-filter-header strong{font-size:14px;font-weight:850}
+.form-filter-header small{font-size:11px;color:var(--theme-muted)}
+.form-cream-tabs{margin:3px 0 15px;padding:4px 0 9px}
+.form-cream-tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:48px;border-radius:13px;padding:7px 11px}
+.form-cream-tabs button small{font-size:10px;opacity:.75;color:inherit}
+.form-cream-tabs button.selected{background:var(--theme-primary)}
+.detail-collection-rows .toggle-row{padding:7px 4px;gap:10px;min-height:57px}
+.toggle-row-label{display:flex;align-items:center;gap:9px;min-width:0;flex:1;overflow-wrap:anywhere}
+.toggle-row-label .entry-art{width:49px;height:49px;flex:0 0 49px;border-radius:12px;background:color-mix(in srgb,var(--theme-secondary) 8%,var(--theme-surface));overflow:hidden}
+.toggle-row-label .entry-art img{max-width:44px;max-height:44px}
+.form-family-card .form-family-art{width:61px;height:61px;background:radial-gradient(circle at center,#fff,#e4eafd);border-radius:15px}
+.form-family-card .form-family-art .entry-art{width:57px;height:57px}
+.form-family-card .form-family-art .entry-art img{max-width:54px;max-height:54px}
+html[data-theme="night"] .entry-art-action{background:radial-gradient(circle at center,#405980,#243452)}
+html[data-theme="night"] .entry-art-empty{background:linear-gradient(145deg,#364970,#29354e)}
+html[data-theme="night"] .visual-entry-grid .entry-art-action{background:radial-gradient(circle,#314b68,transparent)}
+html[data-theme="night"] .form-family-card .form-family-art{background:linear-gradient(145deg,#314a68,#242c48)}
+@media(max-width:350px){
+ .visual-entry-grid{gap:8px}
+ .visual-entry-grid .check-item{min-height:180px;padding:9px 7px 12px}
+ .visual-entry-grid .entry-art-action{height:93px;flex-basis:93px}
+ .visual-entry-grid .check-text{font-size:11px}
+}
+@media(min-width:560px){
+ .visual-entry-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(min-width:820px){
+ .visual-entry-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){
+ .entry-art img{transition:none}
+}
