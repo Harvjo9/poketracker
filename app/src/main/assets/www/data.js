@@ -1,5 +1,6 @@
 import {REGIONAL_FORMS,FORM_VARIANTS,GMAX_FORMS,MEGA_REGISTRATIONS,ALPHA_TARGETS,FORM_CATALOG_COUNTS} from './forms-catalog.js';
 import {EVENT_DISTRIBUTIONS,WORLDS_DISTRIBUTIONS} from './distributions.js';
+import {buildShinyFormEntries,SHINY_FORMS_CATALOG_NOTE} from './shiny-forms.js';
 // Catalog snapshot: PokéAPI species IDs 1–1025, November 2026.
 // Collection items marked 'starter' are illustrative starter requirements, NOT complete or verified HOME catalogs.
 const noGender = new Set('81,82,100,101,120,121,132,137,144,145,146,150,151,201,233,243,244,245,249,250,251,292,337,338,343,344,374,375,376,377,378,379,382,383,384,385,386,436,437,462,474,479,480,481,482,483,484,486,487,489,490,491,492,493,494,599,600,601,615,622,623,638,639,640,643,644,646,647,648,649,703,716,717,718,719,720,721,772,773,774,781,785,786,787,788,789,790,791,792,793,794,795,796,797,798,799,800,801,802,803,804,805,806,807,808,809,854,855,870,880,881,882,883,888,889,890,893,894,895,896,897,898,924,925,984,985,986,987,988,989,990,991,992,993,994,995,999,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1012,1013,1020,1021,1022,1023,1025'.split(',').map(Number));
@@ -43,6 +44,7 @@ export const HOME_GAME_GROUPS = [
 // A 'starter' catalog deliberately does not claim to be the complete set of Pokémon HOME-eligible entries.
 export const COLLECTIONS = [
  {id:'shiny',title:'Shiny Dex',emoji:'✨',group:'living',fullSpecies:true,complete:false,description:'Separate shiny checklist, one per National species. Shiny-lock exceptions still need review.'},
+ {id:'shiny-forms',title:'Shiny Forms Dex',emoji:'🌟',group:'living',starter:true,description:SHINY_FORMS_CATALOG_NOTE,items:[]},
  {id:'variants',title:'Variant Forms',emoji:'🎭',group:'forms',complete:true,description:'259 HOME-oriented form entries from 51 Pokémon families. Select a Pokémon family to see its distinct forms. Regional forms are tracked separately.',items:FORM_VARIANTS},
  {id:'regional',title:'Regional Variants',emoji:'🌎',group:'forms',complete:true,description:'58 regional forms. Choose Alola, Galar, Hisui or Paldea; each region has its own progress.',items:REGIONAL_FORMS},
  {id:'vivillon',title:'Vivillon Dex',emoji:'🦋',group:'forms',complete:true,description:'20 named patterns; one of each.',items:vivillon},
@@ -62,7 +64,9 @@ export const COLLECTIONS = [
  {id:'ribbons',title:'Ribbon Dex',emoji:'🎀',group:'records',starter:true,description:'Ribbons preserved through HOME. One of each type; starter catalog.',items:labels('Champion Ribbon|Sinnoh Champion Ribbon|Kalos Champion Ribbon|Galar Champion Ribbon|Paldea Champion Ribbon|Best Friends Ribbon|Effort Ribbon|Artist Ribbon|Footprint Ribbon|Master Rank Ribbon|Tower Master Ribbon|Twinkling Star Ribbon|Contest Memory Ribbon|Battle Memory Ribbon')},
  {id:'eevee',title:'Eevee Dex',emoji:'🦊',group:'special',starter:true,description:'Each generation of Eevee, its evolutions, and selected variants. Expandable.',items:labels('Eevee — Gen I|Eevee — Gen II|Eevee — Gen III|Eevee — Gen IV|Eevee — Gen V|Eevee — Gen VI|Eevee — Gen VII|Eevee — Gen VIII|Eevee — Gen IX|Vaporeon|Jolteon|Flareon|Espeon|Umbreon|Leafeon|Glaceon|Sylveon|Gigantamax Eevee|Shiny Eevee')},
  {id:'pikachu',title:'Pikachu Dex',emoji:'⚡',group:'special',starter:true,description:'Pikachu forms and special variants. Starter targets, expandable.',items:labels('Pikachu|Shiny Pikachu|Gigantamax Pikachu|Original Cap Pikachu|Hoenn Cap Pikachu|Sinnoh Cap Pikachu|Unova Cap Pikachu|Kalos Cap Pikachu|Alola Cap Pikachu|Partner Cap Pikachu|World Cap Pikachu')}
-];
+ ];
+export const SHINY_FORM_ITEMS = buildShinyFormEntries(COLLECTIONS);
+COLLECTIONS.find(coll=>coll.id==='shiny-forms').items=SHINY_FORM_ITEMS;
 function matchSpeciesId(name){const n=name.toLowerCase();if(n.startsWith('lycanroc'))return 745;if(n.startsWith('oricorio'))return 741;if(n.startsWith('rotom'))return 479;if(n.startsWith('toxtricity'))return 849;if(n.startsWith('furfrou'))return 676;return undefined;}
 export function collectionById(id){return COLLECTIONS.find(x=>x.id===id);}
 const ASSOCIATED_COLLECTIONS = new Set(['titan','ride','eevee','pikachu','trainer','events','worlds']);
