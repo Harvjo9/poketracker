@@ -84,3 +84,10 @@ html[data-theme="night"] .form-family-card .form-family-art{background:linear-gr
 @media(prefers-reduced-motion:reduce){
  .entry-art img{transition:none}
 }
+
+/* Browsable verified distribution starter lists */
+.distribution-year-tabs{margin:3px 0 14px;padding-bottom:7px}
+.distribution-year-tabs button{display:flex;align-items:center;gap:6px;min-height:39px;font-weight:800}
+.distribution-year-tabs button small{font-size:10px;color:inherit;opacity:.8}
+.distribution-method{display:block;font-size:10px;line-height:1.45;max-width:100%;color:var(--theme-muted);margin-top:6px}
+.picture-entry-list .distribution-method{white-space:normal}
