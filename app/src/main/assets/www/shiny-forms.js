@@ -20,9 +20,10 @@ export const VERIFIED_LOCKED_FORM_REASONS=new Map([
  ['variants|901:bloodmoon','Bloodmoon Ursaluna is Shiny-locked.'],
  ['variants|720:confined','Hoopa is not officially obtainable as Shiny.'],
  ['variants|720:unbound','Hoopa is not officially obtainable as Shiny.'],
- ['variants|647:ordinary','Keldeo has not been officially obtainable as Shiny.'],
- ['variants|647:resolute','Keldeo has not been officially obtainable as Shiny.'],
  ['gmax|gigantamax-melmetal','Gigantamax Melmetal distribution has been Shiny-locked.'],
+ ['gmax|gigantamax-urshifu','Shiny Urshifu has not been officially released.'],
+ ['variants|892:single-strike','Shiny Urshifu has not been officially released.'],
+ ['variants|892:rapid-strike','Shiny Urshifu has not been officially released.'],
  ['variants|905:incarnate','Enamorus shiny availability needs verification.'],
  ['variants|905:therian','Enamorus shiny availability needs verification.']
 ]);
