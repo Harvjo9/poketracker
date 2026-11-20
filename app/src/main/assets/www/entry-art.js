@@ -1,3 +1,4 @@
+import {SHINY_EXACT_SPRITES,SHINY_BASE_SPECIES_IDS} from './shiny-art.js';
 // Exact Pokémon HOME sprite paths verified against PokeAPI/sprites Git tree (Nov 2026).
 // Images load from the maintained sprites repository; the APK does not redistribute all image files.
 // Generic species artwork is used only when no form-specific file is available.
@@ -9,8 +10,29 @@ const OFFICIAL = SPRITE_REPOSITORY+'pokemon/other/official-artwork/';
 const NORMAL = SPRITE_REPOSITORY+'pokemon/';
 const slug = value => String(value||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const url = (path) => SPRITE_REPOSITORY+path;
+
+const SHINY_BASE_IDS=new Set(SHINY_BASE_SPECIES_IDS);
+function shinyArtFile(item){
+ const coll=item?.sourceCollection,origin=String(item?.originId||''),sid=Number(item?.speciesId);
+ let file=SHINY_EXACT_SPRITES[coll+'|'+origin];
+ if(coll==='alcremie')file='869-'+origin+'-sweet.png';
+ if(coll==='vivillon')file='666-'+origin+'.png';
+ if(coll==='unown')file='201-'+origin+'.png';
+ if(coll==='furfrou')file='676-'+(origin==='natural-form'?'natural':origin.replace(/-trim$/,''))+'.png';
+ if(coll==='alpha'&&String(item?.name||'').startsWith('Shiny Alpha Hisuian ')){
+  file=SHINY_EXACT_SPRITES['regional|'+origin.replace(/^alpha-/,'')];
+ }
+ return file||null;
+}
+export function shinyFormHasExactArtwork(item){return Boolean(shinyArtFile(item));}
+
 export function entryArtSources(collection,item){
  const coll=String(collection||''),id=String(item?.id||''),sid=Number(item?.speciesId);
+ if(coll==='shiny-forms'){
+  const exact=shinyArtFile(item);
+  if(exact)return [HOME+'shiny/'+exact];
+  return SHINY_BASE_IDS.has(sid)?[HOME+'shiny/'+sid+'.png']:[];
+ }
  if(!Number.isInteger(sid)||sid<1||sid>1025){
   if(coll==='balls'){
    const name=slug(item?.name);
@@ -42,5 +64,6 @@ export function entryArtSources(collection,item){
 }
 export function exactFormArtAvailable(collection,item){
  const coll=String(collection||''),id=String(item?.id||'');
+ if(coll==='shiny-forms')return shinyFormHasExactArtwork(item);
  return ['alcremie','vivillon','unown','furfrou'].includes(coll)||Boolean(EXACT_FORM_IMAGES[coll+'|'+id]);
 }
