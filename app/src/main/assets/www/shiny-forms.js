@@ -13,6 +13,7 @@ export const SHINY_FORM_SOURCES=[
 export const SHINY_FORMS_CATALOG_NOTE='Shiny availability varies by game, date, distribution and form. This is a collectible-target catalog, not a guarantee of current availability. Verify unusual/event-only targets before trading.';
 export const VERIFIED_LOCKED_FORM_REASONS=new Map([
  ['vivillon|poke-ball','Poké Ball Pattern Vivillon has not been released as Shiny.'],
+ ['vivillon|pok-ball','Poké Ball Pattern Vivillon has not been released as Shiny.'],
  ['variants|801:original','Original Color Magearna has not been officially released as Shiny.'],
  ['variants|801:magearna','Magearna has not been officially released as Shiny.'],
  ['variants|893:zarude','Zarude has not been officially released as Shiny.'],
