@@ -102,7 +102,7 @@ function collectionEntryRow(coll,item){
  return `<div class="check-item${visual?' art-entry':''}${yes?' is-collected':''}">
   <button class="checkbox-tap${yes?' is-checked':''}" data-check="${safe(key(coll.id,item.id))}" aria-label="${yes?'Unmark':'Mark'} ${safe(item.name)} as owned" aria-pressed="${yes}"><span>${yes?'✓':''}</span></button>
   <button type="button" class="entry-art-action" data-collection-entry="${safe(item.id)}" aria-label="View ${safe(item.name)} details">${entryArt(item,coll)}</button>
-  <button type="button" class="check-text" data-collection-entry="${safe(item.id)}">${safe(item.name)}${item.speciesId?`<small>#${String(item.speciesId).padStart(4,'0')}${item.year?` · ${item.year}`:''} · ${exactFormArtAvailable(coll.id,item)?'Form artwork':'Pokémon artwork'}</small>`:''}${item.method?`<small class="distribution-method">${safe(item.method)} · ${safe(item.game||'')}</small>`:''}</button>
+  <button type="button" class="check-text" data-collection-entry="${safe(item.id)}">${safe(item.name)}${item.speciesId?`<small>#${String(item.speciesId).padStart(4,'0')}${item.year?` · ${item.year}`:''} · ${coll.id==='shiny-forms'?(exactFormArtAvailable(coll.id,item)?'Shiny form artwork':'Shiny species preview'):(exactFormArtAvailable(coll.id,item)?'Form artwork':'Pokémon artwork')}</small>`:''}${item.sourceLabel?`<small class="shiny-source-label">${safe(item.sourceLabel)} · Independent Shiny target</small>`:''}${item.method?`<small class="distribution-method">${safe(item.method)} · ${safe(item.game||'')}</small>`:''}</button>
   ${shinySwitch}
   ${String(item.id).startsWith('custom-')?`<button class="delete-small" data-delete-custom="${safe(item.id)}" aria-label="Remove custom entry">×</button>`:''}
  </div>`;
