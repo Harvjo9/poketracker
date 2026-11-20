@@ -32,7 +32,7 @@ jobs:
       - name: Validate bundled JavaScript syntax
         shell: bash
         run: |
-          for file in app/src/main/assets/www/{app,data,store,sync,config,entry-art,distributions,forms-catalog,shiny-forms,shiny-art}.js; do
+          for file in app/src/main/assets/www/{app,data,store,sync,config,entry-art,distributions,forms-catalog,shiny-forms,shiny-art,home-game-dex}.js; do
             node --input-type=module --check < "$file"
           done
       - name: Verify Pokédex and form catalog requirements
@@ -43,11 +43,13 @@ jobs:
         run: node scripts/verify-visual.mjs
       - name: Verify Shiny Forms ownership and artwork
         run: node scripts/verify-shiny.mjs
+      - name: Verify Pokémon HOME reward game Dexes
+        run: node scripts/verify-home-dex.mjs
       - name: Build installable debug APK
         run: gradle --no-daemon :app:assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.1-apk
+          name: poke-track-v0.3.2-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
