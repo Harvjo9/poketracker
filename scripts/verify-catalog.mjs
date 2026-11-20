@@ -10,7 +10,7 @@ assert.deepEqual(FORM_CATALOG_COUNTS.regions,expectedCounts);
 assert.equal(FORM_CATALOG_COUNTS.variants,259);
 assert.equal(FORM_CATALOG_COUNTS.variantFamilies,51);
 assert.equal(FORM_CATALOG_COUNTS.gmax,32);
-assert.equal(FORM_CATALOG_COUNTS.mega,97);
+assert.equal(FORM_CATALOG_COUNTS.megas,97);
 assert.equal(FORM_CATALOG_COUNTS.alphas,222);
 for(const coll of COLLECTIONS){
  const entries=collectionEntries(coll,species);
