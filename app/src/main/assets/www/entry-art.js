@@ -7,7 +7,7 @@ export const SPRITE_REPOSITORY = 'https://raw.githubusercontent.com/PokeAPI/spri
 const HOME = SPRITE_REPOSITORY+'pokemon/other/home/';
 const OFFICIAL = SPRITE_REPOSITORY+'pokemon/other/official-artwork/';
 const NORMAL = SPRITE_REPOSITORY+'pokemon/';
-const slug = value => String(value||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const slug = value => String(value||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const url = (path) => SPRITE_REPOSITORY+path;
 export function entryArtSources(collection,item){
  const coll=String(collection||''),id=String(item?.id||''),sid=Number(item?.speciesId);
