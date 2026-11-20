@@ -35,6 +35,7 @@ export function entryArtSources(collection,item){
   const suffix=id==='natural-form'?'natural':id.replace(/-trim$/,'');
   candidates.push(HOME+'676-'+suffix+'.png');
  }else if(coll==='shiny')candidates.push(HOME+'shiny/'+sid+'.png');
+ if(item.shiny&&coll==='events')candidates.push(HOME+'shiny/'+sid+'.png');
  if(primary)candidates.push(HOME+primary);
  candidates.push(HOME+sid+'.png',OFFICIAL+sid+'.png',NORMAL+sid+'.png');
  return [...new Set(candidates)];
