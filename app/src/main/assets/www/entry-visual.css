@@ -140,3 +140,6 @@ html[data-theme="night"] .shiny-mini-locked{background:#353e52;color:#abbcd4}
  .picture-entry-list .shiny-mini-toggle{min-width:72px;font-size:10px}
  .visual-entry-grid .check-item:has(.shiny-mini-toggle){min-height:217px}
 }
+
+.shiny-source-label{color:var(--theme-secondary);font-weight:650;font-size:9px;line-height:1.35}
+html[data-theme="night"] .shiny-source-label{color:#87cefb}
