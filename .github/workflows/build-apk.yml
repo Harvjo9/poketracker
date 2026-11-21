@@ -45,11 +45,62 @@ jobs:
         run: node scripts/verify-shiny.mjs
       - name: Verify Pokémon HOME reward game Dexes
         run: node scripts/verify-home-dex.mjs
-      - name: Build installable debug APK
+      - name: Check stable signing setup
+        id: signing
+        shell: bash
+        env:
+          KEYSTORE_B64: ${{ secrets.POKE_TRACK_KEYSTORE_BASE64 }}
+          STORE_PASS: ${{ secrets.POKE_TRACK_STORE_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ] && [ -n "$STORE_PASS" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            echo "Stable signing configured; release APK enabled."
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Stable signing not yet configured; only a temporary debug APK will be available."
+          fi
+      - name: Build temporary debug APK
         run: gradle --no-daemon :app:assembleDebug
-      - uses: actions/upload-artifact@v4
+      - name: Upload temporary debug APK
+        uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.2-apk
+          name: poke-track-v0.3.3-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
+      - name: Restore stable signing keystore (private)
+        if: steps.signing.outputs.ready == 'true'
+        shell: bash
+        env:
+          KEYSTORE_B64: ${{ secrets.POKE_TRACK_KEYSTORE_BASE64 }}
+        run: |
+          umask 077
+          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/poketrack-stable.jks"
+          test -s "$RUNNER_TEMP/poketrack-stable.jks"
+          chmod 600 "$RUNNER_TEMP/poketrack-stable.jks"
+      - name: Build stable signed release APK
+        if: steps.signing.outputs.ready == 'true'
+        env:
+          POKE_TRACK_KEYSTORE_PATH: ${{ runner.temp }}/poketrack-stable.jks
+          POKE_TRACK_STORE_PASSWORD: ${{ secrets.POKE_TRACK_STORE_PASSWORD }}
+          POKE_TRACK_KEY_ALIAS: poketrack-release
+          POKE_TRACK_KEY_PASSWORD: ${{ secrets.POKE_TRACK_STORE_PASSWORD }}
+        run: gradle --no-daemon :app:assembleRelease
+      - name: Verify signed release APK
+        if: steps.signing.outputs.ready == 'true'
+        shell: bash
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "app/build/outputs/apk/release/app-release.apk"
+          echo "APK signature verified."
+      - name: Upload stable release APK
+        if: steps.signing.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: poke-track-v0.3.3-stable-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 30
+      - name: Delete temporary signing key
+        if: always()
+        shell: bash
+        run: rm -f "$RUNNER_TEMP/poketrack-stable.jks"
