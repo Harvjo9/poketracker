@@ -1,4 +1,4 @@
-# Poké Track Android v0.3.3
+# Poké Track Android v0.3.4
 
 Unofficial personal Living Dex tracker for Android. This repo contains the Android WebView project and offline HTML/CSS/JS data.
 
@@ -44,3 +44,13 @@ No existing checkmark IDs were reused or overwritten. Existing user data and bac
 - Free-tier account setup and the owner-only release signing steps are documented in [docs/RELIABILITY_SETUP_V033.md](docs/RELIABILITY_SETUP_V033.md). These services must be configured by the project owner; no cloud account or GitHub secret is created automatically.
 
 **Backups remain essential**: Last-write-wins cloud syncing does not protect against accidental checkmarks or restores, and client device clocks need to be reasonably accurate. Never put a service-role API key, private signing keystore, or passwords in committed files.
+
+## v0.3.4 — Free cloud project connected
+- **Poke Track** Supabase project is active on the Free plan in US East (Ohio).
+- The database `public.user_entries` has Row Level Security and per-user SELECT/INSERT/UPDATE rules. The `public.merge_user_entries` RPC uses SECURITY INVOKER and compares timestamps before writing.
+- `app/src/main/assets/www/config.js` now embeds ONLY the project's public URL and `sb_publishable_...` client key. This key may be shipped in a public APK; **never commit a service-role key or any signing secrets**.
+- The app can sign in and sync after the owner changes the Supabase **Magic Link email template** to include `{{ .Token }}`, then signs in with an email code in Settings.
+- The project is linked in source, but no user's Pokémon progress has been imported or tested between devices yet. That requires sign-in and a verification round trip on the real device.
+- Local backups remain necessary; a new Android build can still have a different debug signing identity until the user's private stable signing secrets are configured.
+
+See the [project-specific email-code template](https://supabase.com/dashboard/project/bsukdkdwubebopupmoan/auth/templates/magic-link-or-otp) and [safe update guide](docs/RELIABILITY_SETUP_V033.md).
