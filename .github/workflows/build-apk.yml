@@ -49,6 +49,8 @@ jobs:
         run: node scripts/verify-reliability.mjs
       - name: Verify free Supabase email sign-in links
         run: node scripts/verify-magic-link.mjs
+      - name: Verify gender and shiny switch rendering
+        run: node scripts/verify-detail-switches.mjs
       - name: Check stable signing setup
         id: signing
         shell: bash
@@ -68,7 +70,7 @@ jobs:
       - name: Upload temporary debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.5-debug-apk
+          name: poke-track-v0.3.6-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
@@ -116,7 +118,7 @@ jobs:
         if: steps.signing.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.5-stable-apk
+          name: poke-track-v0.3.6-stable-apk
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 30
