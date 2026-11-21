@@ -51,6 +51,10 @@ const workflow=await read('../../../../../.github/workflows/build-apk.yml').catc
 const sync=await read('sync.js');
 const java=await read('../../java/app/poketrack/livingdex/MainActivity.java');
 const app=await read('app.js');
+assert.ok(sql&&sql.includes('security invoker'),'Supabase RPC must preserve Row Level Security');
+assert.ok(sql.includes('public.user_entries.updated_at < excluded.updated_at'),'Server must reject stale-device writes');
+assert.ok(workflow&&workflow.includes('secrets.POKE_TRACK_KEYSTORE_BASE64'),'Stable signing key must come from GitHub Actions secret');
+assert.ok(workflow.includes('Verify signed release APK'),'Release artifacts must pass signature verification');
 assert.ok(sync.includes('/rest/v1/rpc/merge_user_entries'),'Sync must use conditional atomic SQL merge');
 assert.ok(sync.includes('LAST_SUCCESSFUL_SYNC_KEY'),'Successful cloud sync date should persist');
 assert.ok(java.includes('notifyBackupResult(true)'),'Android should report successful saved file');
