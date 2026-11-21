@@ -32,7 +32,7 @@ jobs:
       - name: Validate bundled JavaScript syntax
         shell: bash
         run: |
-          for file in app/src/main/assets/www/{app,data,store,sync,config,entry-art,distributions,forms-catalog,shiny-forms,shiny-art,home-game-dex}.js; do
+          for file in app/src/main/assets/www/{app,data,store,sync,config,entry-art,distributions,forms-catalog,shiny-forms,shiny-art,home-game-dex,magic-link}.js; do
             node --input-type=module --check < "$file"
           done
       - name: Verify Pokédex and form catalog requirements
@@ -47,6 +47,8 @@ jobs:
         run: node scripts/verify-home-dex.mjs
       - name: Verify backups, cloud sync and signing guardrails
         run: node scripts/verify-reliability.mjs
+      - name: Verify free Supabase email sign-in links
+        run: node scripts/verify-magic-link.mjs
       - name: Check stable signing setup
         id: signing
         shell: bash
@@ -66,7 +68,7 @@ jobs:
       - name: Upload temporary debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.4-debug-apk
+          name: poke-track-v0.3.5-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
@@ -114,7 +116,7 @@ jobs:
         if: steps.signing.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.4-stable-apk
+          name: poke-track-v0.3.5-stable-apk
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 30
