@@ -66,7 +66,7 @@ jobs:
       - name: Upload temporary debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.3-debug-apk
+          name: poke-track-v0.3.4-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
@@ -114,7 +114,7 @@ jobs:
         if: steps.signing.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.3-stable-apk
+          name: poke-track-v0.3.4-stable-apk
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 30
