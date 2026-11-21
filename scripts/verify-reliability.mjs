@@ -48,6 +48,10 @@ assert.ok(store.lastConfirmedBackupAt(),'Record only after actual Android file-w
 
 const sql=await read('../../../../../supabase-setup.sql').catch(()=>null);
 const workflow=await read('../../../../../.github/workflows/build-apk.yml').catch(()=>null);
+const config=await read('config.js');
+assert.ok(config.includes('https://bsukdkdwubebopupmoan.supabase.co'),'App must point at the new free Supabase project');
+assert.ok(/sb_publishable_[A-Za-z0-9_]+/.test(config),'Use public publishable key');
+assert.ok(!/service_role|sb_secret_[A-Za-z0-9]+/.test(config),'Private Supabase API key must not be in public config');
 const sync=await read('sync.js');
 const java=await read('../../java/app/poketrack/livingdex/MainActivity.java');
 const app=await read('app.js');
