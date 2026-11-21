@@ -5,4 +5,14 @@ app/build/
 *.iml
 local.properties
 .DS_Store
-# The checked-in poketrack-debug.keystore is DEVELOPMENT ONLY; do not use it for release builds.
+
+# NEVER commit a release signing key or its recovery/password material.
+*.jks
+*.keystore
+*.p12
+*.pfx
+signing.properties
+.env
+.env.*
+*keystore-base64*
+*signing-password*
