@@ -106,9 +106,17 @@ public class MainActivity extends Activity {
                     if (out == null) throw new Exception("No output stream");
                     out.write(pendingBackup.getBytes(StandardCharsets.UTF_8));
                     Toast.makeText(this, "Backup saved", Toast.LENGTH_SHORT).show();
-                } catch (Exception ex) { Toast.makeText(this, "Could not save backup", Toast.LENGTH_LONG).show(); }
+                    notifyBackupResult(true);
+                } catch (Exception ex) { Toast.makeText(this, "Could not save backup", Toast.LENGTH_LONG).show(); notifyBackupResult(false); }
             }
+            if (resultCode != RESULT_OK || data == null || data.getData() == null) notifyBackupResult(false);
             pendingBackup = null;
+        }
+    }
+
+    private void notifyBackupResult(boolean saved) {
+        if (webView != null) {
+            webView.evaluateJavascript("if (window.PokeTrackBackupResult) window.PokeTrackBackupResult(" + (saved ? "true" : "false") + ");", null);
         }
     }
 
