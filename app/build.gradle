@@ -1,4 +1,13 @@
 plugins { id 'com.android.application' }
+
+// A stable release APK is built only when the owner's private signing key is supplied.
+// Never commit a keystore, private key or passwords to this repository.
+def releaseKeystore = System.getenv('POKE_TRACK_KEYSTORE_PATH')
+def releasePassword = System.getenv('POKE_TRACK_STORE_PASSWORD')
+def releaseAlias = System.getenv('POKE_TRACK_KEY_ALIAS')
+def releaseKeyPassword = System.getenv('POKE_TRACK_KEY_PASSWORD')
+def hasReleaseSigning = [releaseKeystore, releasePassword, releaseAlias, releaseKeyPassword].every { it != null && !it.isEmpty() }
+
 android {
     namespace 'app.poketrack.livingdex'
     compileSdk 35
@@ -6,13 +15,31 @@ android {
         applicationId 'app.poketrack.livingdex'
         minSdk 26
         targetSdk 34
-        versionCode 7
-        versionName '0.3.2'
+        versionCode 8
+        versionName '0.3.3'
+    }
+    signingConfigs {
+        if (hasReleaseSigning) {
+            stableRelease {
+                storeFile file(releaseKeystore)
+                storePassword releasePassword
+                keyAlias releaseAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.stableRelease
+            }
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
 }
+
 dependencies { implementation 'androidx.webkit:webkit:1.13.0' }
