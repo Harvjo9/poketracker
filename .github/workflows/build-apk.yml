@@ -45,6 +45,8 @@ jobs:
         run: node scripts/verify-shiny.mjs
       - name: Verify Pokémon HOME reward game Dexes
         run: node scripts/verify-home-dex.mjs
+      - name: Verify backups, cloud sync and signing guardrails
+        run: node scripts/verify-reliability.mjs
       - name: Check stable signing setup
         id: signing
         shell: bash
