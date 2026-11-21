@@ -1,4 +1,4 @@
-# Poké Track Android v0.3.4
+# Poké Track Android v0.3.5
 
 Unofficial personal Living Dex tracker for Android. This repo contains the Android WebView project and offline HTML/CSS/JS data.
 
@@ -54,3 +54,8 @@ No existing checkmark IDs were reused or overwritten. Existing user data and bac
 - Local backups remain necessary; a new Android build can still have a different debug signing identity until the user's private stable signing secrets are configured.
 
 See the [project-specific email-code template](https://supabase.com/dashboard/project/bsukdkdwubebopupmoan/auth/templates/magic-link-or-otp) and [safe update guide](docs/RELIABILITY_SETUP_V033.md).
+
+## v0.3.5 — Free Magic Link login (no custom SMTP)
+Supabase restricted Free-tier email-template editing on June 3, 2026. The prior UI erroneously required a numeric OTP, but the default sender delivers a Magic Link. Version 0.3.5 accepts the default link: send email, long-press **Sign in** in the email to copy the link address *without opening it*, paste the full Supabase URL into the app's password-masked field, then tap **Sign in with link**. A strict validator allows only this project's HTTPS `/auth/v1/verify` links with acceptable one-time token types and then POSTs the token hash to that same Supabase project. Never paste the sign-in link into chats or bug reports.
+
+The default Supabase email service may send only to email addresses belonging to the Supabase project team. Team members can test for free; third-party SMTP is not configured or required for initial owner use. This update retains independent checklist keys, previous JSON backup format, and the free database. **Back up before installing** while the permanent signing key is not yet configured. See [setup guide](docs/RELIABILITY_SETUP_V033.md).
