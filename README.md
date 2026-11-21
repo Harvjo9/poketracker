@@ -1,12 +1,12 @@
-# Poké Track Android v0.3.2
+# Poké Track Android v0.3.3
 
 Unofficial personal Living Dex tracker for Android. This repo contains the Android WebView project and offline HTML/CSS/JS data.
 
 Open Actions → Build Poké Track APK; download the artifact. Use the supplied APK on Android 8+ only if you trust this repository. Progress is local unless Supabase sync is configured. Back up your data before updates.
 
-**Warning:** Debug APKs built from GitHub Actions use a per-run signing key. For an update APK, you may have to uninstall the previous version, which deletes local data. Export a backup first. Production signing will be set up privately later.
+**Important:** A GitHub debug APK may use a different key at every build. To enable ordinary over-the-top APK updates, securely set up the private release signing secrets (instructions below). Until then the workflow provides a debug testing APK only. **Export and verify a backup** before replacing an existing APK.
 
-Cloud sync is not configured by default: it requires a user-owned Supabase project and an email login.
+Cloud sync is not configured by default: it requires your own Supabase project, SQL setup, and email login. See [v0.3.3 Setup Guide](docs/RELIABILITY_SETUP_V033.md).
 
 ## v0.3.1 — Shiny Forms Dex
 - The regular National Shiny Dex still tracks one Shiny per species.
@@ -34,3 +34,13 @@ All seven game groups now open populated, separately tracked HOME-origin checkli
 The regional Pokédex species order comes from PokeAPI's pokemon_dex_numbers.csv (snapshot 2026-11-20). HOME completion requirements and exceptions were cross-checked with Pokémon HOME official features and Bulbapedia's HOME Pokédex reference. The Mega Evolution section excludes 12 Ranked/event-only Megas from reward-required progress while keeping them visible and manually checkable. The game-origin category is not verified against the user's Nintendo account: **check only after HOME actually registers the Pokémon in that game-specific Pokédex**. Each subsection's checkmarks and percentages are independent from other game Dexes and from the National Living Dex.
 
 No existing checkmark IDs were reused or overwritten. Existing user data and backup format are unchanged. Download a JSON backup before changing GitHub-built debug APKs; GitHub's per-build signing may require reinstall.
+
+## v0.3.3 — Reliability, stable signing preparation and safer cloud merging
+- v0.3.2 is preserved in `stable/v0.3.2-home-dex` as the last working checkpoint.
+- Configurable **stable release signing** accepts a private keystore and password from GitHub Actions repository secrets. Secrets are NOT stored in the repository; until configured, only a temporary debug APK is delivered. A one-time backup/reinstall may be needed to move to the stable key.
+- Native Android backup dialog reports actual file-save success back to the app. Settings shows the last **confirmed** successful backup, not merely when a download was requested.
+- Backup restore now previews a valid v0.1-format JSON backup, counts its records, and rejects malformed entries **before** replacing existing saved data. Local writes commit atomically or leave the previous in-memory progress unchanged.
+- Sync uses a guarded SQL RPC that does not let a stale device overwrite a newer server record between reads. Database Row Level Security remains enabled and only a signed-in user's own rows can be changed. Last successful sync time persists across launches.
+- Free-tier account setup and the owner-only release signing steps are documented in [docs/RELIABILITY_SETUP_V033.md](docs/RELIABILITY_SETUP_V033.md). These services must be configured by the project owner; no cloud account or GitHub secret is created automatically.
+
+**Backups remain essential**: Last-write-wins cloud syncing does not protect against accidental checkmarks or restores, and client device clocks need to be reasonably accurate. Never put a service-role API key, private signing keystore, or passwords in committed files.
