@@ -51,7 +51,7 @@ const workflow=await read('../../../../../.github/workflows/build-apk.yml').catc
 const config=await read('config.js');
 assert.ok(config.includes('https://bsukdkdwubebopupmoan.supabase.co'),'App must point at the new free Supabase project');
 assert.ok(/sb_publishable_[A-Za-z0-9_]+/.test(config),'Use public publishable key');
-const embeddedKey=config.match(/supabaseAnonKey:\\s*'([^']+)'/)?.[1];
+const embeddedKey=config.match(/supabaseAnonKey:\s*'([^']+)'/)?.[1];
 assert.ok(embeddedKey?.startsWith('sb_publishable_'),'Client key must be publishable, not a private or service-role key');
 const sync=await read('sync.js');
 const java=await read('../../java/app/poketrack/livingdex/MainActivity.java');
