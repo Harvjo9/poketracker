@@ -32,7 +32,7 @@ jobs:
       - name: Validate bundled JavaScript syntax
         shell: bash
         run: |
-          for file in app/src/main/assets/www/{app,data,store,sync,config,entry-art,distributions,forms-catalog,shiny-forms,shiny-art,home-game-dex,magic-link}.js; do
+          for file in app/src/main/assets/www/{app,data,store,sync,config,entry-art,distributions,forms-catalog,shiny-forms,shiny-art,home-game-dex,magic-link,terastal}.js; do
             node --input-type=module --check < "$file"
           done
       - name: Verify Pokédex and form catalog requirements
@@ -51,6 +51,8 @@ jobs:
         run: node scripts/verify-magic-link.mjs
       - name: Verify gender and shiny switch rendering
         run: node scripts/verify-detail-switches.mjs
+      - name: Verify Terastal Type tracking and backup independence
+        run: node scripts/verify-terastal.mjs
       - name: Check stable signing setup
         id: signing
         shell: bash
@@ -70,7 +72,7 @@ jobs:
       - name: Upload temporary debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.6-debug-apk
+          name: poke-track-v0.3.7-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
@@ -118,7 +120,7 @@ jobs:
         if: steps.signing.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: poke-track-v0.3.6-stable-apk
+          name: poke-track-v0.3.7-stable-apk
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 30
