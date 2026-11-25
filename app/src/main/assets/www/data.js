@@ -1,6 +1,7 @@
 import {REGIONAL_FORMS,FORM_VARIANTS,GMAX_FORMS,MEGA_REGISTRATIONS,ALPHA_TARGETS,FORM_CATALOG_COUNTS} from './forms-catalog.js';
 import {EVENT_DISTRIBUTIONS,WORLDS_DISTRIBUTIONS} from './distributions.js';
 import {buildShinyFormEntries,SHINY_FORMS_CATALOG_NOTE} from './shiny-forms.js';
+import {TERA_TYPE_ENTRIES,TERA_NOTE} from './terastal.js';
 // Catalog snapshot: PokéAPI species IDs 1–1025, November 2026.
 // Collection items marked 'starter' are illustrative starter requirements, NOT complete or verified HOME catalogs.
 const noGender = new Set('81,82,100,101,120,121,132,137,144,145,146,150,151,201,233,243,244,245,249,250,251,292,337,338,343,344,374,375,376,377,378,379,382,383,384,385,386,436,437,462,474,479,480,481,482,483,484,486,487,489,490,491,492,493,494,599,600,601,615,622,623,638,639,640,643,644,646,647,648,649,703,716,717,718,719,720,721,772,773,774,781,785,786,787,788,789,790,791,792,793,794,795,796,797,798,799,800,801,802,803,804,805,806,807,808,809,854,855,870,880,881,882,883,888,889,890,893,894,895,896,897,898,924,925,984,985,986,987,988,989,990,991,992,993,994,995,999,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1012,1013,1020,1021,1022,1023,1025'.split(',').map(Number));
@@ -51,6 +52,7 @@ export const COLLECTIONS = [
  {id:'alcremie',title:'Alcremie Dex',emoji:'🍰',group:'forms',complete:true,description:'63 cream-and-sweet combinations; one of each.',items:alcremie},
  {id:'unown',title:'Unown Dex',emoji:'🔤',group:'forms',complete:true,description:'A–Z plus ! and ?; one of each.',items:unown},
  {id:'furfrou',title:'Furfrou Dex',emoji:'🐩',group:'forms',complete:true,description:'Natural coat and the nine named trims; one of each.',items:labels('Natural Form|Heart Trim|Star Trim|Diamond Trim|Debutante Trim|Matron Trim|Dandy Trim|La Reine Trim|Kabuki Trim|Pharaoh Trim').map(x=>({...x,speciesId:676}))},
+ {id:'tera-types',title:'Tera Type Dex',emoji:'💎',group:'special',complete:true,description:TERA_NOTE,items:TERA_TYPE_ENTRIES},
  {id:'gmax',title:'Gigantamax Factor',emoji:'⚡',group:'special',complete:true,description:'32 eligible Pokémon species with Gigantamax Factor. One per species. Normal Dynamax is not a distinct stored form.',items:GMAX_FORMS},
  {id:'mega',title:'Mega Registrations',emoji:'Ⓜ️',group:'special',starter:true,description:'Mega Evolution HOME registration records, not storable Mega specimens. This list includes forms beyond official reward requirements; verify origin and Mega Stones separately.',items:MEGA_REGISTRATIONS},
  {id:'titan',title:'Titan Dex',emoji:'⛰️',group:'special',starter:true,description:'Special Titan Pokémon, one each. Confirm HOME-preserved status when finalizing.',items:labels('Klawf — Stony Cliff Titan|Bombirdier — Open Sky Titan|Orthworm — Lurking Steel Titan|Great Tusk — Quaking Earth Titan|Iron Treads — Quaking Earth Titan|Dondozo — False Dragon Titan|Tatsugiri — False Dragon Titan')},
