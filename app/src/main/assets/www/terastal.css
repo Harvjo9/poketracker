@@ -1,0 +1,27 @@
+/* Poké Track v0.3.7 — Terastal Type record and optional type-collection UI */
+.tera-panel{color:var(--theme-ink)}
+.tera-slot-fields{display:grid;gap:10px;margin:13px 0 17px}
+.tera-slot{display:flex;flex-direction:column;gap:7px;padding:12px;border:1px solid var(--theme-line);background:var(--theme-surface);border-radius:14px}
+.tera-slot>span{font-size:12px;font-weight:800;color:var(--theme-ink)}
+.tera-slot select{appearance:auto;display:block;width:100%;min-height:42px;border:1px solid var(--theme-line);border-radius:10px;background:var(--theme-surface);color:var(--theme-ink);padding:9px 10px;font-size:14px;font-weight:650}
+.tera-slot select:focus-visible,.tera-expand:focus-visible,.tera-owned-type:focus-visible,.tera-collection-entry:focus-visible{outline:3px solid #6999ff;outline-offset:2px}
+.tera-expand{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:56px;padding:11px 12px;margin:10px 0;border:1px solid color-mix(in srgb,#9b75e3 32%,var(--theme-line));border-radius:13px;background:color-mix(in srgb,#ab91ec 11%,var(--theme-surface));color:var(--theme-ink);text-align:left}
+.tera-expand>span{font-size:12px;font-weight:750;line-height:1.4}
+.tera-expand>strong{font-size:11px;color:var(--theme-secondary);white-space:nowrap}
+.tera-owned-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:11px 0 14px}
+.tera-owned-type{min-width:0;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:9px 4px;border:1px solid color-mix(in srgb,var(--tera-color) 40%,var(--theme-line));border-radius:12px;background:color-mix(in srgb,var(--tera-color) 11%,var(--theme-surface));color:var(--theme-ink)}
+.tera-owned-type>span{font-size:21px;line-height:1.2}
+.tera-owned-type>b{font-size:11px;white-space:normal;line-height:1.3}
+.tera-owned-type>small{font-size:9px;color:var(--theme-muted)}
+.tera-owned-type.owned{background:color-mix(in srgb,var(--tera-color) 29%,var(--theme-surface));border:2px solid var(--tera-color);padding:8px 3px}
+.tera-owned-type.owned>small{color:var(--theme-ink);font-weight:850}
+.tera-collection-entry{min-height:67px;width:100%;display:flex;align-items:center;gap:13px;padding:10px 14px;margin:0 0 5px;border:1px solid color-mix(in srgb,var(--tera-color) 32%,var(--theme-line));border-radius:13px;background:color-mix(in srgb,var(--tera-color) 8%,var(--theme-surface));color:var(--theme-ink);text-align:left}
+.tera-collection-entry .tera-symbol{width:44px;height:44px;display:grid;place-items:center;flex:0 0 auto;font-size:24px;border-radius:13px;background:color-mix(in srgb,var(--tera-color) 23%,var(--theme-surface))}
+.tera-collection-entry .tera-title{display:flex;flex-direction:column;gap:3px;flex:1}
+.tera-collection-entry .tera-title strong{font-size:15px}
+.tera-collection-entry .tera-title small{font-size:10px;color:var(--theme-muted)}
+.tera-collection-entry .tera-check{width:28px;height:28px;border:2px solid color-mix(in srgb,var(--tera-color) 52%,#a1a7b1);border-radius:9px;display:grid;place-items:center;color:var(--theme-surface);font-size:18px;font-weight:900}
+.tera-collection-entry.owned{border:2px solid var(--tera-color);padding:9px 13px;background:color-mix(in srgb,var(--tera-color) 24%,var(--theme-surface))}
+.tera-collection-entry.owned .tera-check{background:var(--tera-color);border-color:var(--tera-color)}
+@media(min-width:700px){.tera-slot-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.tera-owned-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:370px){.tera-owned-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tera-expand{flex-wrap:wrap}}
