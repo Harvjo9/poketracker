@@ -1,4 +1,4 @@
-# Poké Track Android v0.3.6
+# Poké Track Android v0.3.7
 
 Unofficial personal Living Dex tracker for Android. This repo contains the Android WebView project and offline HTML/CSS/JS data.
 
@@ -65,3 +65,14 @@ The default Supabase email service may send only to email addresses belonging to
 - The switches now use the same existing `checked(id)` helper as progress totals; Shiny and other checkboxes inside the detail sheet are corrected too. Favorite switches still use their separate raw key.
 - **No save-format migration**: existing local and cloud checkmarks remain where they are. Regression tests compare owned/unowned Male, Female, Shiny, and Favorite switches.
 - Android debug APK signing still changes between builds until stable signing secrets are set. Export and verify a JSON backup before any uninstall/reinstall.
+
+## v0.3.7 — Terastal Type tracking (Scarlet/Violet)
+- **Tera Type Dex** is an optional 19-type checklist in Collections → Special Pokémon: the 18 ordinary types plus Stellar. One representative per type; this is a personal goal, **not an official Pokémon HOME reward Dex**.
+- Each National Pokémon detail view includes **Terastal Types**, with separate dropdowns for the two Living Dex copies (Male/Female, two copies of a single gender, or two genderless copies). Set the type only when appropriate for a Pokémon that can be in Scarlet/Violet. Leaving it as "Not recorded" is fine.
+- Expand "Extra Tera Types owned for this species" to optionally track multiple extra specimens by type. This is NOT a requirement to collect every possible type for every Pokémon; special Pokémon such as Ogerpon/Terapagos have type restrictions.
+- All selectors, per-species extra checkmarks, and global Tera Dex checkmarks use distinct namespaced saved keys. Marking one never automatically checks another, never changes your National Dex progress, and never marks Shiny or forms.
+- All new records use the unchanged local-storage JSON backup and cloud-sync record format. No migration is required.
+- Pokémon HOME stores Tera Type on individual Pokémon but Pokémon transferred from other games cannot necessarily enter Scarlet/Violet, and some forms have fixed Tera types. The app makes no eligibility or game-origin claim for every National species.
+- **Android debug signing is still temporary:** back up and verify before uninstalling any APK. Keep your previous v0.3.6 app until the backup is safe.
+
+Last-known-good code prior to this release is in `stable/v0.3.6-before-terastal`.
